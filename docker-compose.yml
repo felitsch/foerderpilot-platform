@@ -1,10 +1,11 @@
 services:
   postgres:
     image: postgres:16-alpine
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: foerderpilot
+      POSTGRES_DB: foerderis
     ports:
       - "5432:5432"
     volumes:

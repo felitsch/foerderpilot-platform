@@ -7,10 +7,18 @@
 
 ## Context
 
-FörderPilot is a B2B SaaS for German SMEs to automate grant/subsidy research and applications. The platform needs:
-- Public marketing site
-- Authenticated customer dashboard
-- Agent-facing APIs for the Paperclip backend team
+Foerderis is an internal consulting platform for German SME grant/subsidy advisory. The platform consists of three distinct surfaces:
+
+1. **Marketing Landingpage** — public-facing, presents the service offering
+2. **Kundenportal (Customer Portal)** — authenticated area for clients to view their grant applications and consulting status
+3. **Backend-Admin** — internal tool for consultants to manage clients, documents, and workflows
+
+**Important:** Foerderis is **not a SaaS product**. There is no self-service onboarding, no demo mode, and no subscription billing. Client onboarding is handled exclusively by the consulting team. The revenue model is a success-fee (Erfolgshonorar) arrangement — no recurring subscriptions.
+
+The platform needs:
+- Public marketing site (Landingpage)
+- Authenticated customer portal (Kundenportal)
+- Internal backend-admin for consultants
 - Document generation (PDF/DOCX)
 - Robust data pipelines (grant databases, company profiles)
 
@@ -21,7 +29,8 @@ FörderPilot is a B2B SaaS for German SMEs to automate grant/subsidy research an
 - Structure:
   ```
   /apps
-    /web          — Next.js 16 App Router (marketing + dashboard)
+    /web          — Next.js 16 App Router (marketing + Kundenportal)
+    /admin        — Next.js 16 App Router (Backend-Admin, internal only)
   /packages
     /db           — Drizzle ORM schema + migrations
     /shared       — Shared types, Zod schemas, utilities
@@ -63,6 +72,8 @@ FörderPilot is a B2B SaaS for German SMEs to automate grant/subsidy research an
 - Mobile apps (web-first, mobile-responsive)
 - Multi-tenancy complexity (single-tenant first, extract later)
 - Self-hosting alternative (Vercel-only for v0)
+- Self-service / demo mode (consulting-led onboarding only)
+- Subscription billing (Erfolgshonorar model only)
 
 ## Architecture Decisions (Open Questions Resolved)
 
