@@ -56,20 +56,18 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/foerderis
 BETTER_AUTH_SECRET=your-secret-here
 BETTER_AUTH_URL=http://localhost:3000
 
-# Resend — ausgehende E-Mails (Waitlist-Confirmation + Internal Alerts)
-# Kostenlos bis 3.000 Mails/Monat — https://resend.com
-# Domain foerderis.de muss via SPF/DKIM/Return-Path in Hostinger-DNS verifiziert sein
+# Resend — ausgehende E-Mails (Waitlist + Approval-Notifications)
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxx
-
-# Interne Benachrichtigungs-E-Mail (Default: felix@foerderis.de)
 NOTIFICATION_EMAIL=felix@foerderis.de
 
-# Paperclip — Lead-Task-Erstellung bei Waitlist-Eintrag
+# Paperclip — Waitlist-Lead-Task + Approval-Notification-Route
 PAPERCLIP_API_URL=https://felixgaber-hostinger.com/api
 PAPERCLIP_COMPANY_ID=a2365516-5c35-4933-86fe-5f03c609e570
 PAPERCLIP_CEO_AGENT_ID=a396757c-4fbe-49f7-8cfb-49050d72f356
-# System-Token: im Paperclip-Dashboard unter API Keys erstellen (nicht ins Repo committen)
 PAPERCLIP_SYSTEM_TOKEN=pc_sys_xxxxxxxxxxxxxxxx
+
+# Interne API-Route absichern (optional, aber empfohlen)
+INTERNAL_WEBHOOK_SECRET=your-random-secret-here
 ```
 
 Für Produktion werden die Werte im Vercel-Projekt gesetzt.
