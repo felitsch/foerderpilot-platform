@@ -1,6 +1,6 @@
 import { Search, FileText, ShieldCheck } from "lucide-react";
-import { Button } from "@foerderpilot/ui";
-import { Card, CardContent } from "@foerderpilot/ui";
+import { Button } from "@foerderis/ui";
+import { Card, CardContent } from "@foerderis/ui";
 import { WaitlistForm } from "@/components/waitlist-form";
 
 const VALUE_PROPS = [

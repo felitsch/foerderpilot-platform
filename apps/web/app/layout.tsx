@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FörderPilot",
+  title: "Foerderis",
   description:
     "Automatisierte Fördermittel-Recherche, Antragsvorbereitung und Compliance-Prüfung für deutsche KMUs.",
 };

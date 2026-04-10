@@ -1,5 +1,5 @@
 {
-  "name": "@foerderpilot/web",
+  "name": "@foerderis/web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@foerderpilot/db": "workspace:*",
-    "@foerderpilot/shared": "workspace:*",
-    "@foerderpilot/ui": "workspace:*",
+    "@foerderis/db": "workspace:*",
+    "@foerderis/shared": "workspace:*",
+    "@foerderis/ui": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.8.0",

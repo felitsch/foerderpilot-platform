@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Button } from "@foerderpilot/ui";
+import { Button } from "@foerderis/ui";
 
 export const metadata: Metadata = {
-  title: "Impressum — FörderPilot",
+  title: "Impressum — Foerderis",
 };
 
 export default function ImpressumPage() {

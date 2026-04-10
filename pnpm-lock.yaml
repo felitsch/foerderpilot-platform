@@ -20,13 +20,13 @@ importers:
 
   apps/web:
     dependencies:
-      '@foerderpilot/db':
+      '@foerderis/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@foerderpilot/shared':
+      '@foerderis/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      '@foerderpilot/ui':
+      '@foerderis/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       class-variance-authority:

@@ -1,6 +1,6 @@
 "use server";
 
-import { waitlistFormSchema } from "@foerderpilot/shared";
+import { waitlistFormSchema } from "@foerderis/shared";
 
 export type WaitlistState =
   | { status: "idle" }
@@ -26,7 +26,7 @@ export async function submitWaitlist(
 
   try {
     // Dynamic import keeps the module-level DATABASE_URL check out of build time
-    const { db, waitlist } = await import("@foerderpilot/db");
+    const { db, waitlist } = await import("@foerderis/db");
     await db.insert(waitlist).values(parsed.data);
     return { status: "success" };
   } catch (err) {
