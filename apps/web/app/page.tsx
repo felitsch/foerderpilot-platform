@@ -215,7 +215,13 @@ export default function Home() {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Foerderis. Alle Rechte vorbehalten.
           </p>
-          <nav aria-label="Footer-Navigation">
+          <nav aria-label="Footer-Navigation" className="flex gap-6">
+            <a
+              href="/faq"
+              className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+            >
+              FAQ
+            </a>
             <a
               href="/impressum"
               className="text-sm text-muted-foreground underline-offset-4 hover:underline"
