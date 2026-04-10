@@ -159,7 +159,7 @@ describe("submitWaitlist — notification side-effects", () => {
         headers: expect.objectContaining({
           Authorization: "Bearer sys_token_789",
         }),
-      }),
+      })
     );
 
     const body = JSON.parse((global.fetch as any).mock.calls[0][1].body);

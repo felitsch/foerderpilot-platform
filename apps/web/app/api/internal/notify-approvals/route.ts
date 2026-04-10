@@ -31,7 +31,7 @@ interface PaperclipComment {
 async function getIssuesNeedingApproval(
   apiUrl: string,
   companyId: string,
-  token: string,
+  token: string
 ): Promise<PaperclipIssue[]> {
   const url = `${apiUrl}/api/companies/${companyId}/issues?labelId=${NEEDS_APPROVAL_LABEL_ID}&status=todo,in_progress,in_review,blocked`;
   const res = await fetch(url, {
@@ -43,11 +43,7 @@ async function getIssuesNeedingApproval(
   return res.json() as Promise<PaperclipIssue[]>;
 }
 
-async function isAlreadyNotified(
-  apiUrl: string,
-  issueId: string,
-  token: string,
-): Promise<boolean> {
+async function isAlreadyNotified(apiUrl: string, issueId: string, token: string): Promise<boolean> {
   const res = await fetch(`${apiUrl}/api/issues/${issueId}/comments`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -60,7 +56,7 @@ async function markAsNotified(
   apiUrl: string,
   issueId: string,
   token: string,
-  runId?: string,
+  runId?: string
 ): Promise<void> {
   await fetch(`${apiUrl}/api/issues/${issueId}/comments`, {
     method: "POST",
@@ -90,7 +86,7 @@ function buildEmailHtml(issue: PaperclipIssue): string {
     .join(" ");
 
   return `
-<p><strong>Approval erforderlich</strong> für Paperclip-Issue <a href="${issueUrl}">${issue.identifier}</a>:</p>
+<p><strong>Approval needed</strong> für Paperclip-Issue <a href="${issueUrl}">${issue.identifier}</a>:</p>
 <p style="font-size:1.1em;font-weight:bold;">${issue.title}</p>
 ${sentences ? `<p>${sentences}</p>` : ""}
 <p><a href="${issueUrl}" style="background:#f59e0b;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;display:inline-block;">Issue ansehen →</a></p>
@@ -113,8 +109,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const paperclipApiUrl = process.env.PAPERCLIP_API_URL;
   const paperclipCompanyId = process.env.PAPERCLIP_COMPANY_ID;
   const paperclipSystemToken = process.env.PAPERCLIP_SYSTEM_TOKEN;
-  const notificationEmail =
-    process.env.NOTIFICATION_EMAIL ?? "felix@foerderis.de";
+  const notificationEmail = process.env.NOTIFICATION_EMAIL ?? "felix@foerderis.de";
 
   if (!resendApiKey || !paperclipApiUrl || !paperclipCompanyId || !paperclipSystemToken) {
     return NextResponse.json(
@@ -127,7 +122,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           !paperclipSystemToken && "PAPERCLIP_SYSTEM_TOKEN",
         ].filter(Boolean),
       },
-      { status: 503 },
+      { status: 503 }
     );
   }
 
@@ -142,7 +137,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const issues = await getIssuesNeedingApproval(
       paperclipApiUrl,
       paperclipCompanyId,
-      paperclipSystemToken,
+      paperclipSystemToken
     );
 
     await Promise.all(
@@ -151,7 +146,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           const alreadySent = await isAlreadyNotified(
             paperclipApiUrl,
             issue.id,
-            paperclipSystemToken,
+            paperclipSystemToken
           );
           if (alreadySent) {
             skipped.push(issue.identifier);
@@ -167,12 +162,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           });
 
           // Mark notified
-          await markAsNotified(
-            paperclipApiUrl,
-            issue.id,
-            paperclipSystemToken,
-            runId,
-          );
+          await markAsNotified(paperclipApiUrl, issue.id, paperclipSystemToken, runId);
 
           notified.push(issue.identifier);
         } catch (err) {
@@ -181,12 +171,12 @@ export async function POST(request: Request): Promise<NextResponse> {
             error: err instanceof Error ? err.message : String(err),
           });
         }
-      }),
+      })
     );
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 

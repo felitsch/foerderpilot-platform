@@ -86,8 +86,8 @@ describe("POST /api/internal/notify-approvals", () => {
     const issue = makeIssue("issue-1", "FRDAA-99", "Vertrag mit Acme");
 
     global.fetch = mockFetchSequence([
-      { ok: true, json: [issue] },           // GET issues
-      { ok: true, json: [] },                // GET comments (none)
+      { ok: true, json: [issue] }, // GET issues
+      { ok: true, json: [] }, // GET comments (none)
       { ok: true, json: { id: "comment" } }, // POST marker comment
     ]);
 
@@ -151,9 +151,9 @@ describe("POST /api/internal/notify-approvals", () => {
 
     global.fetch = mockFetchSequence([
       { ok: true, json: [issue1, issue2] },
-      { ok: true, json: [] },                            // i-1 no marker
-      { ok: true, json: [{ id: "c", body: MARKER }] },   // i-2 already marked
-      { ok: true, json: { id: "new-comment" } },         // i-1 marker post
+      { ok: true, json: [] }, // i-1 no marker
+      { ok: true, json: [{ id: "c", body: MARKER }] }, // i-2 already marked
+      { ok: true, json: { id: "new-comment" } }, // i-1 marker post
     ]);
 
     const res = await POST(makeRequest());
