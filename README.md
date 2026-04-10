@@ -1,87 +1,99 @@
-# FörderPilot Platform
+# Foerderis
 
-> Automatisierte Fördermittel-Recherche, Antragsvorbereitung und Compliance-Prüfung für deutsche KMUs.
+> KI-gestützte Fördermittelberatung für den deutschen Mittelstand.
+> Erfolgshonorar statt Abo — nur bezahlt, wenn die Förderung bewilligt wird.
 
-**This repository is being built by an autonomous agent team orchestrated via [Paperclip](https://github.com/paperclipai/paperclip).**
+**Dieses Repository wird von einem autonomen KI-Agent-Team gebaut, orchestriert durch [Paperclip](https://github.com/paperclipai/paperclip).**
 
-[![CI](https://github.com/felitsch/foerderpilot-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/felitsch/foerderpilot-platform/actions/workflows/ci.yml)
-[![Vercel](https://img.shields.io/github/deployments/felitsch/foerderpilot-platform/production?label=vercel&logo=vercel&logoColor=white)](https://vercel.com/felitsch/foerderpilot-platform)
+[![CI](https://github.com/felitsch/foerderis-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/felitsch/foerderis-platform/actions/workflows/ci.yml)
+[![Vercel](https://img.shields.io/github/deployments/felitsch/foerderis-platform/production?label=vercel&logo=vercel&logoColor=white)](https://vercel.com/felitsch/foerderis-platform)
+
+## Was ist Foerderis?
+
+Eine Fördermittelberatung, die komplett erfolgsbasiert arbeitet. Unser KI-Team scannt rund um die Uhr deutsche und europäische Förderprogramme, findet passende Chancen, entwirft Anträge, überwacht Fristen und erstellt revisionssichere Dokumentation.
+
+- **10 % der bewilligten Fördersumme** — keine Einrichtungsgebühr, kein Abo, kein Retainer
+- **Zahlung erst, wenn das Geld beim Kunden angekommen ist**
+- **Zielkunden:** deutscher Mittelstand, 10–250 Mitarbeiter, 2–50 Mio. € Umsatz
+
+Positionierung, Voice, Zielkunde: [`docs/BRAND.md`](./docs/BRAND.md)
+Technik-Stack: [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)
 
 ## Getting Started
 
-### Prerequisites
+### Voraussetzungen
 
 - **Node.js** 24+
-- **pnpm** (install via `corepack enable`)
-- **Docker** (for local database)
+- **pnpm** (via `corepack enable`)
+- **Docker** (für die lokale Datenbank)
 
 ### Setup
 
 ```bash
-# Install dependencies
+# Abhängigkeiten installieren
 pnpm install
 
-# Copy environment variables
+# Environment-Datei kopieren
 cp .env.example .env.local
-# Edit .env.local with your values (see Environment Variables below)
+# .env.local mit eigenen Werten füllen (siehe unten)
 
-# Start local database
+# Lokale Datenbank starten
 docker compose up -d
 
-# Start development server
+# Dev-Server starten
 pnpm dev
 ```
 
-### Environment Variables
+### Environment-Variablen
 
-Create a `.env.local` file in the repo root:
+Eine `.env.local` im Repo-Root anlegen:
 
 ```env
-# Database (Neon — use local Docker URL for development)
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/foerderpilot
+# Database (Neon — lokal via Docker)
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/foerderis
 
 # Auth (Better Auth)
 BETTER_AUTH_SECRET=your-secret-here
 BETTER_AUTH_URL=http://localhost:3000
 ```
 
-For production, these are set in the Vercel project settings.
+Für Produktion werden die Werte im Vercel-Projekt gesetzt.
 
-### Available Scripts
+### Verfügbare Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start all apps in development mode (via Turborepo) |
-| `pnpm build` | Build all packages and apps |
-| `pnpm test` | Run all tests (Vitest) |
-| `pnpm biome check .` | Lint and format check |
-| `pnpm turbo typecheck` | Run TypeScript type checking across all packages |
+| Befehl | Beschreibung |
+|--------|--------------|
+| `pnpm dev` | Startet alle Apps im Dev-Modus (via Turborepo) |
+| `pnpm build` | Baut alle Packages und Apps |
+| `pnpm test` | Führt alle Tests aus (Vitest) |
+| `pnpm biome check .` | Lint- und Format-Check |
+| `pnpm turbo typecheck` | TypeScript-Typprüfung über alle Packages |
 
-## Architecture
+## Architektur
 
-Turborepo monorepo with pnpm workspaces. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for full tech stack decisions and ADRs.
+Turborepo-Monorepo mit pnpm-Workspaces. Volle Tech-Stack-Entscheidungen und ADRs in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ```
 /apps
-  /web          — Next.js 16 App Router (marketing + dashboard)
+  /web          — Next.js 16 App Router (Marketing + Dashboard)
 /packages
-  /db           — Drizzle ORM schema + migrations (Neon)
-  /shared       — Shared types, Zod schemas, utilities
-  /ui           — Shared React components (shadcn-based)
+  /db           — Drizzle ORM Schema + Migrations (Neon)
+  /shared       — Gemeinsame Types, Zod-Schemas, Utilities
+  /ui           — Shared React Components (shadcn-basiert)
 /infra
-  /vercel       — Vercel config
+  /vercel       — Vercel-Konfiguration
 /docs
   /adr          — Architecture Decision Records
 ```
 
 ## CI/CD
 
-- **CI:** GitHub Actions runs lint, typecheck, test, and build on every push and PR
-- **Deploy:** Vercel handles all deployments automatically — no deploy step in CI
-  - Push to `main` → Production deploy
-  - Open PR → Preview deploy (URL posted as PR comment by Vercel bot)
+- **CI:** GitHub Actions — Lint, Typecheck, Test und Build bei jedem Push und jedem PR
+- **Deploy:** Vercel kümmert sich automatisch um Deployments — kein Deploy-Step in der CI
+  - Push auf `main` → Production-Deploy
+  - Neuer PR → Preview-Deploy (URL wird von Vercel als PR-Kommentar gepostet)
 
-All four CI checks must pass before a PR can be merged to `main`.
+Alle vier CI-Checks müssen grün sein, bevor ein PR gemergt werden kann.
 
 ## Contributing
 
@@ -120,18 +132,31 @@ ci: update Node version in workflow [FRDAA-14]
 - At least 1 CTO approval required before merge
 - Branch must be up to date with `main` before merge
 
-## Agent Team
+## Das Agent-Team
 
-| Agent | Role |
-|-------|------|
-| CTO | Technical leadership, repo ownership, code reviews |
-| SoftwareArchitect | System design, ADRs, tech stack decisions |
-| BackendDev | API, database, business logic |
-| FrontendDev | Web UI, user experience |
-| DevOpsEngineer | CI/CD, infrastructure, deployments |
-| QAEngineer | Testing, quality assurance |
+### Engineering (baut die Plattform)
+
+| Agent | Rolle |
+|-------|-------|
+| CTO | Technische Leitung, Repository-Verantwortung, Code Reviews |
+| SoftwareArchitect | System-Design, ADRs, Tech-Stack-Entscheidungen |
+| BackendDev | API, Datenbank, Business-Logik |
+| FrontendDev | Web-UI, User Experience |
+| DevOpsEngineer | CI/CD, Infrastruktur, Deployments |
+| QAEngineer | Tests, Qualitätssicherung |
+
+### Business (betreibt die Beratung)
+
+| Agent | Rolle |
+|-------|-------|
+| CEO | Strategie, Delegation, Priorisierung |
+| FörderScout | Scannt Förderprogramme rund um die Uhr |
+| AntragsManager | Führt Kunden durch Antragsprozesse, überwacht Fristen |
+| DatenSammler | Extrahiert und strukturiert Unternehmensdaten |
+| ComplianceChecker | Revisionssichere Prüfung jedes Antrags |
 
 ## Deployment
 
-- **Production:** [felixgaber-hostinger.com](https://felixgaber-hostinger.com) (control plane)
-- **Web App:** Vercel (auto-deployed from `main`)
+- **Kontrollebene (Paperclip):** [felixgaber-hostinger.com](https://felixgaber-hostinger.com)
+- **Webanwendung:** Vercel — automatischer Deploy bei jedem Push auf `main`
+- **Produktion:** [foerderis.de](https://foerderis.de) *(Domain-Registrierung ausstehend)*
