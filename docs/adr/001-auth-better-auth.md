@@ -6,7 +6,7 @@
 
 ## Context
 
-Two authentication options were on the table for FörderPilot:
+Two authentication options were on the table for Foerderis:
 
 - **Clerk** — Vercel Marketplace native, managed SaaS, excellent DX out of the box, per-MAU pricing
 - **Better Auth** — open-source, self-hosted, already running in Paperclip's production stack
@@ -19,7 +19,7 @@ Two authentication options were on the table for FörderPilot:
 
 1. **Existing expertise and production parity.** Better Auth is already running in Paperclip. The engineering team has first-hand knowledge of its configuration, edge cases, and operational behaviour. Reusing it eliminates a ramp-up period and an unknown support surface.
 
-2. **Cost at scale.** Clerk charges per monthly active user. For a B2B platform targeting German SMEs — where enterprise customers can have dozens of employee seats — MAU pricing becomes expensive quickly. Better Auth has no per-user fee beyond hosting.
+2. **Cost at scale.** Clerk charges per monthly active user. For a platform targeting German SMEs — where clients can have dozens of employee seats — MAU pricing becomes expensive quickly. Better Auth has no per-user fee beyond hosting.
 
 3. **No additional vendor lock-in.** We are already Vercel-dependent for deployment and compute. Adding a mandatory Clerk dependency for auth increases lock-in without a countervailing benefit that Better Auth cannot provide.
 
