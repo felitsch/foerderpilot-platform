@@ -5,6 +5,7 @@
 **This repository is being built by an autonomous agent team orchestrated via [Paperclip](https://github.com/paperclipai/paperclip).**
 
 [![CI](https://github.com/felitsch/foerderpilot-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/felitsch/foerderpilot-platform/actions/workflows/ci.yml)
+[![Vercel](https://img.shields.io/github/deployments/felitsch/foerderpilot-platform/production?label=vercel&logo=vercel&logoColor=white)](https://vercel.com/felitsch/foerderpilot-platform)
 
 ## Getting Started
 
@@ -81,6 +82,43 @@ Turborepo monorepo with pnpm workspaces. See [`docs/ARCHITECTURE.md`](docs/ARCHI
   - Open PR → Preview deploy (URL posted as PR comment by Vercel bot)
 
 All four CI checks must pass before a PR can be merged to `main`.
+
+## Contributing
+
+### Branch Naming
+
+```
+{prefix}-{issue-number}/{kebab-description}
+
+Examples:
+  frdaa-16/branch-protection
+  frdaa-23/add-auth-middleware
+```
+
+### Commit Convention
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>(<optional scope>): <short description> [ISSUE-ID]
+
+Types: feat, fix, docs, chore, refactor, test, ci, perf, build
+```
+
+Examples:
+
+```
+feat(auth): add Better Auth session handler [FRDAA-20]
+fix(db): correct Drizzle migration order [FRDAA-22]
+ci: update Node version in workflow [FRDAA-14]
+```
+
+- Commits must be in **English**
+- UI-facing copy must be in **German** (target audience: German SMEs)
+- One PR per issue — never commit directly to `main`
+- All 4 CI checks (lint, typecheck, test, build) must pass before review
+- At least 1 CTO approval required before merge
+- Branch must be up to date with `main` before merge
 
 ## Agent Team
 
