@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# scripts/hooks/pre-commit
+# Blocks commits that contain Vercel token patterns (vcp_...).
+# Install via: bash scripts/install-hooks.sh
+#
+# This prevents accidental token leaks in committed code.
+
+set -euo pipefail
+
+TOKEN_PATTERN='vcp_[a-zA-Z0-9]+'
+
+# Check staged diff for Vercel token patterns
+if git diff --cached --unified=0 | grep -qP "$TOKEN_PATTERN"; then
+  echo ""
+  echo "SECURITY ERROR: Vercel token leak detected in staged changes!"
+  echo "  Pattern matched: vcp_[a-zA-Z0-9]+"
+  echo ""
+  echo "  Vercel tokens must NEVER be committed to the repository."
+  echo "  Fetch the token at runtime via Paperclip Secrets:"
+  echo "    PAPERCLIP_API_URL=... PAPERCLIP_COMPANY_ID=... PAPERCLIP_API_KEY=... bash scripts/vercel-deploy.sh"
+  echo ""
+  echo "  If this is a false positive, remove the token-like string before committing."
+  echo ""
+  exit 1
+fi
+
+exit 0
