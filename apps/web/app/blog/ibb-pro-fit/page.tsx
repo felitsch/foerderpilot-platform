@@ -69,8 +69,8 @@ export default function IbbProFitPage() {
             </h1>
             <p className="text-lg text-muted-foreground">
               IBB Pro FIT ist das F&E-Förderprogramm der Investitionsbank Berlin — ausschließlich
-              für Berliner KMU. Wer ein Forschungs- oder Entwicklungsprojekt plant, kann bis zu
-              80 % der Personalkosten erstattet bekommen. Die aktuelle Antragsrunde schließt am{" "}
+              für Berliner KMU. Wer ein Forschungs- oder Entwicklungsprojekt plant, kann bis zu 80 %
+              der Personalkosten erstattet bekommen. Die aktuelle Antragsrunde schließt am{" "}
               <strong className="text-foreground">23. April 2026</strong>.
             </p>
           </header>
@@ -86,15 +86,15 @@ export default function IbbProFitPage() {
               </h2>
               <p>
                 IBB Pro FIT (Produktive Innovationen Fördern und Investitionen Tätigen) ist ein
-                Förderprogramm der Investitionsbank Berlin (IBB). Es unterstützt kleine und
-                mittlere Unternehmen mit Sitz oder Niederlassung in Berlin bei der Durchführung
-                von Forschungs- und Entwicklungsprojekten.
+                Förderprogramm der Investitionsbank Berlin (IBB). Es unterstützt kleine und mittlere
+                Unternehmen mit Sitz oder Niederlassung in Berlin bei der Durchführung von
+                Forschungs- und Entwicklungsprojekten.
               </p>
               <p className="mt-4">
                 Anders als Bundesprogramme wie KMU-innovativ richtet sich Pro FIT gezielt an den
                 Berliner Wirtschaftsraum. Das Programm ist Teil der Berliner Innovationsstrategie
-                und wird aus Mitteln des Europäischen Fonds für regionale Entwicklung (EFRE)
-                sowie des Landes Berlin finanziert. Die Kombination macht Pro FIT zu einem der
+                und wird aus Mitteln des Europäischen Fonds für regionale Entwicklung (EFRE) sowie
+                des Landes Berlin finanziert. Die Kombination macht Pro FIT zu einem der
                 attraktivsten regionalen F&E-Förderprogramme in Deutschland.
               </p>
             </section>
@@ -119,30 +119,30 @@ export default function IbbProFitPage() {
                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
                   <span>
-                    <strong className="text-foreground">KMU-Status nach EU-Definition</strong>:
-                    bis zu 250 Mitarbeiter, Jahresumsatz bis 50 Mio. € oder Bilanzsumme bis
-                    43 Mio. €
+                    <strong className="text-foreground">KMU-Status nach EU-Definition</strong>: bis
+                    zu 250 Mitarbeiter, Jahresumsatz bis 50 Mio. € oder Bilanzsumme bis 43 Mio. €
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
                   <span>
-                    <strong className="text-foreground">F&E-Vorhaben mit Innovationscharakter</strong> —
-                    das Projekt muss über den Stand der Technik hinausgehen
+                    <strong className="text-foreground">
+                      F&E-Vorhaben mit Innovationscharakter
+                    </strong>{" "}
+                    — das Projekt muss über den Stand der Technik hinausgehen
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
                   <span>
-                    <strong className="text-foreground">Wirtschaftliche Verwertungsabsicht</strong> —
-                    die Ergebnisse sollen in Produkte, Verfahren oder Dienstleistungen münden
+                    <strong className="text-foreground">Wirtschaftliche Verwertungsabsicht</strong>{" "}
+                    — die Ergebnisse sollen in Produkte, Verfahren oder Dienstleistungen münden
                   </span>
                 </li>
               </ul>
               <p className="mt-4">
-                Kooperationsprojekte mit anderen Unternehmen oder Berliner
-                Forschungseinrichtungen sind ebenfalls förderfähig und werden bei der Bewertung
-                positiv berücksichtigt.
+                Kooperationsprojekte mit anderen Unternehmen oder Berliner Forschungseinrichtungen
+                sind ebenfalls förderfähig und werden bei der Bewertung positiv berücksichtigt.
               </p>
             </section>
 
@@ -178,8 +178,8 @@ export default function IbbProFitPage() {
               </ul>
               <p className="mt-4">
                 Die förderfähigen Projektkosten liegen zwischen{" "}
-                <strong className="text-foreground">20.000 und 500.000 EUR</strong> pro
-                Vorhaben. Bei Kooperationsprojekten kann das Gesamtvolumen höher ausfallen.
+                <strong className="text-foreground">20.000 und 500.000 EUR</strong> pro Vorhaben.
+                Bei Kooperationsprojekten kann das Gesamtvolumen höher ausfallen.
               </p>
             </section>
 
@@ -204,10 +204,9 @@ export default function IbbProFitPage() {
                     <strong className="text-foreground">Antrag einreichen</strong>
                     <p className="mt-1">
                       Einreichung über das IBB-Förderportal. Der Antrag umfasst eine
-                      Projektbeschreibung (Ziele, Arbeitspakete, Zeitplan), einen
-                      Finanzierungsplan sowie Angaben zur wirtschaftlichen Lage des
-                      Unternehmens. Alle Unterlagen müssen vor Fristablauf vollständig
-                      vorliegen.
+                      Projektbeschreibung (Ziele, Arbeitspakete, Zeitplan), einen Finanzierungsplan
+                      sowie Angaben zur wirtschaftlichen Lage des Unternehmens. Alle Unterlagen
+                      müssen vor Fristablauf vollständig vorliegen.
                     </p>
                   </div>
                 </li>
@@ -218,10 +217,10 @@ export default function IbbProFitPage() {
                   <div>
                     <strong className="text-foreground">Begutachtung</strong>
                     <p className="mt-1">
-                      Die IBB prüft die formale Vollständigkeit, dann bewertet ein
-                      unabhängiges Expertengremium die technisch-wissenschaftliche Qualität
-                      und das Verwertungspotenzial. Rückmeldung in der Regel innerhalb von
-                      8–12 Wochen nach Einreichfrist.
+                      Die IBB prüft die formale Vollständigkeit, dann bewertet ein unabhängiges
+                      Expertengremium die technisch-wissenschaftliche Qualität und das
+                      Verwertungspotenzial. Rückmeldung in der Regel innerhalb von 8–12 Wochen nach
+                      Einreichfrist.
                     </p>
                   </div>
                 </li>
@@ -233,10 +232,10 @@ export default function IbbProFitPage() {
                     <strong className="text-foreground">Bewilligung und Projektstart</strong>
                     <p className="mt-1">
                       Nach positivem Bescheid wird ein Zuwendungsvertrag geschlossen. Die
-                      Fördermittel werden auf Nachweis der angefallenen Kosten abgerufen —
-                      nicht pauschal vorab ausgezahlt. Von Antragstellung bis Projektstart
-                      sind realistisch{" "}
-                      <strong className="text-foreground">3–5 Monate</strong> einzuplanen.
+                      Fördermittel werden auf Nachweis der angefallenen Kosten abgerufen — nicht
+                      pauschal vorab ausgezahlt. Von Antragstellung bis Projektstart sind
+                      realistisch <strong className="text-foreground">3–5 Monate</strong>{" "}
+                      einzuplanen.
                     </p>
                   </div>
                 </li>
