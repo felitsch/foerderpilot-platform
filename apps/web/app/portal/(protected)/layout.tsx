@@ -2,6 +2,10 @@ import { auth } from "@foerderis/db";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+// BETTER_AUTH_SECRET and DATABASE_URL are only available at runtime, not
+// during next build — force dynamic rendering for the entire portal subtree.
+export const dynamic = "force-dynamic";
+
 /**
  * Portal protected layout — server-side auth guard.
  * The middleware (middleware.ts) handles the redirect for most requests;
