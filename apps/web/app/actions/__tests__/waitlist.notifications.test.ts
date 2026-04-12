@@ -69,13 +69,13 @@ describe("submitWaitlist — notification side-effects", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Reset env vars
-    delete process.env.RESEND_API_KEY;
-    delete process.env.PAPERCLIP_API_URL;
-    delete process.env.PAPERCLIP_COMPANY_ID;
-    delete process.env.PAPERCLIP_CEO_AGENT_ID;
-    delete process.env.PAPERCLIP_SYSTEM_TOKEN;
-    delete process.env.NOTIFICATION_EMAIL;
+    // Reset env vars (use Reflect.deleteProperty to avoid biome noDelete lint)
+    Reflect.deleteProperty(process.env, "RESEND_API_KEY");
+    Reflect.deleteProperty(process.env, "PAPERCLIP_API_URL");
+    Reflect.deleteProperty(process.env, "PAPERCLIP_COMPANY_ID");
+    Reflect.deleteProperty(process.env, "PAPERCLIP_CEO_AGENT_ID");
+    Reflect.deleteProperty(process.env, "PAPERCLIP_SYSTEM_TOKEN");
+    Reflect.deleteProperty(process.env, "NOTIFICATION_EMAIL");
   });
 
   it("returns success even when RESEND_API_KEY and Paperclip vars are absent", async () => {
@@ -159,7 +159,7 @@ describe("submitWaitlist — notification side-effects", () => {
         headers: expect.objectContaining({
           Authorization: "Bearer sys_token_789",
         }),
-      }),
+      })
     );
 
     const body = JSON.parse((global.fetch as any).mock.calls[0][1].body);
@@ -197,7 +197,7 @@ describe("submitWaitlist — DB layer", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    delete process.env.RESEND_API_KEY;
+    Reflect.deleteProperty(process.env, "RESEND_API_KEY");
   });
 
   it("returns error with duplicate message on unique constraint violation", async () => {

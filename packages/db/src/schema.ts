@@ -1,10 +1,4 @@
-import {
-  boolean,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 // ─── Waitlist ────────────────────────────────────────────────────────────────
 
@@ -12,9 +6,7 @@ export const waitlist = pgTable("waitlist", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: text("email").notNull().unique(),
   companyName: text("company_name").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type Waitlist = typeof waitlist.$inferSelect;
@@ -87,12 +79,8 @@ export const customer = pgTable("customer", {
     .unique()
     .references(() => user.id, { onDelete: "cascade" }),
   companyName: text("company_name").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type Customer = typeof customer.$inferSelect;
@@ -112,15 +100,9 @@ export const lead = pgTable("lead", {
   })
     .notNull()
     .default("initial"),
-  lastActivityAt: timestamp("last_activity_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
+  lastActivityAt: timestamp("last_activity_at", { withTimezone: true }).defaultNow().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type Lead = typeof lead.$inferSelect;

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
 
 /**
  * Magic-Link Login Page for the Kundenportal.
@@ -10,9 +10,7 @@ import { authClient } from "@/lib/auth-client";
  */
 export default function LoginPage() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -34,12 +32,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground">
-            Foerderis Kundenportal
-          </h1>
+          <h1 className="text-2xl font-bold text-foreground">Foerderis Kundenportal</h1>
           <p className="text-muted-foreground mt-2 text-sm">
-            Geben Sie Ihre E-Mail-Adresse ein. Wir schicken Ihnen einen
-            Login-Link.
+            Geben Sie Ihre E-Mail-Adresse ein. Wir schicken Ihnen einen Login-Link.
           </p>
         </div>
 
@@ -52,10 +47,7 @@ export default function LoginPage() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-foreground mb-1"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
                 E-Mail-Adresse
               </label>
               <input

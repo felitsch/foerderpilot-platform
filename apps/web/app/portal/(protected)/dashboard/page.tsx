@@ -23,14 +23,11 @@ export default function DashboardPage() {
 
       {/* Anträge-Tabelle (Stub) */}
       <section>
-        <h2 className="text-lg font-semibold text-foreground mb-3">
-          Meine Anträge
-        </h2>
+        <h2 className="text-lg font-semibold text-foreground mb-3">Meine Anträge</h2>
         <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
           Noch keine Förderanträge vorhanden.
           <br />
-          Ihr Foerderis-Team meldet sich, sobald passende Programme gefunden
-          wurden.
+          Ihr Foerderis-Team meldet sich, sobald passende Programme gefunden wurden.
         </div>
       </section>
     </div>

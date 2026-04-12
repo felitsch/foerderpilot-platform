@@ -15,7 +15,7 @@ export type WaitlistState =
 async function sendLeadConfirmationEmail(
   resend: Resend,
   email: string,
-  companyName: string,
+  companyName: string
 ): Promise<void> {
   await resend.emails.send({
     from: "Foerderis <kontakt@foerderis.de>",
@@ -34,10 +34,9 @@ async function sendLeadConfirmationEmail(
 async function sendInternalAlertEmail(
   resend: Resend,
   email: string,
-  companyName: string,
+  companyName: string
 ): Promise<void> {
-  const notificationEmail =
-    process.env.NOTIFICATION_EMAIL ?? "felix@foerderis.de";
+  const notificationEmail = process.env.NOTIFICATION_EMAIL ?? "felix@foerderis.de";
   await resend.emails.send({
     from: "Foerderis System <kontakt@foerderis.de>",
     to: notificationEmail,
@@ -53,19 +52,14 @@ async function sendInternalAlertEmail(
   });
 }
 
-async function createPaperclipLeadTask(
-  email: string,
-  companyName: string,
-): Promise<void> {
+async function createPaperclipLeadTask(email: string, companyName: string): Promise<void> {
   const apiUrl = process.env.PAPERCLIP_API_URL;
   const companyId = process.env.PAPERCLIP_COMPANY_ID;
   const ceoAgentId = process.env.PAPERCLIP_CEO_AGENT_ID;
   const systemToken = process.env.PAPERCLIP_SYSTEM_TOKEN;
 
   if (!apiUrl || !companyId || !ceoAgentId || !systemToken) {
-    console.warn(
-      "[waitlist] Paperclip env vars not configured — skipping task creation",
-    );
+    console.warn("[waitlist] Paperclip env vars not configured — skipping task creation");
     return;
   }
 
@@ -99,9 +93,7 @@ async function createPaperclipLeadTask(
   });
 
   if (!res.ok) {
-    throw new Error(
-      `Paperclip API responded ${res.status}: ${await res.text()}`,
-    );
+    throw new Error(`Paperclip API responded ${res.status}: ${await res.text()}`);
   }
 }
 
@@ -111,7 +103,7 @@ async function createPaperclipLeadTask(
 
 export async function submitWaitlist(
   _prevState: WaitlistState,
-  formData: FormData,
+  formData: FormData
 ): Promise<WaitlistState> {
   const raw = {
     email: formData.get("email"),
@@ -151,34 +143,24 @@ export async function submitWaitlist(
   const resendApiKey = process.env.RESEND_API_KEY;
   const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-  const [emailConfirmResult, emailAlertResult, paperclipResult] =
-    await Promise.allSettled([
-      resend
-        ? sendLeadConfirmationEmail(resend, email, companyName)
-        : Promise.reject(new Error("RESEND_API_KEY not configured")),
-      resend
-        ? sendInternalAlertEmail(resend, email, companyName)
-        : Promise.reject(new Error("RESEND_API_KEY not configured")),
-      createPaperclipLeadTask(email, companyName),
-    ]);
+  const [emailConfirmResult, emailAlertResult, paperclipResult] = await Promise.allSettled([
+    resend
+      ? sendLeadConfirmationEmail(resend, email, companyName)
+      : Promise.reject(new Error("RESEND_API_KEY not configured")),
+    resend
+      ? sendInternalAlertEmail(resend, email, companyName)
+      : Promise.reject(new Error("RESEND_API_KEY not configured")),
+    createPaperclipLeadTask(email, companyName),
+  ]);
 
   if (emailConfirmResult.status === "rejected") {
-    console.error(
-      "[waitlist] Lead confirmation email failed:",
-      emailConfirmResult.reason,
-    );
+    console.error("[waitlist] Lead confirmation email failed:", emailConfirmResult.reason);
   }
   if (emailAlertResult.status === "rejected") {
-    console.error(
-      "[waitlist] Internal alert email failed:",
-      emailAlertResult.reason,
-    );
+    console.error("[waitlist] Internal alert email failed:", emailAlertResult.reason);
   }
   if (paperclipResult.status === "rejected") {
-    console.error(
-      "[waitlist] Paperclip task creation failed:",
-      paperclipResult.reason,
-    );
+    console.error("[waitlist] Paperclip task creation failed:", paperclipResult.reason);
   }
 
   return { status: "success" };

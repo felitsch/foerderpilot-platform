@@ -28,12 +28,8 @@ export default async function PortalLayout({
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
         <div className="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
-          <span className="font-semibold text-foreground">
-            Foerderis Kundenportal
-          </span>
-          <span className="text-sm text-muted-foreground">
-            {session.user.email}
-          </span>
+          <span className="font-semibold text-foreground">Foerderis Kundenportal</span>
+          <span className="text-sm text-muted-foreground">{session.user.email}</span>
         </div>
       </header>
       <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
