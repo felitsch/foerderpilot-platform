@@ -232,6 +232,12 @@ export default function Home() {
             >
               Impressum
             </a>
+            <a
+              href="/datenschutz"
+              className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+            >
+              Datenschutz
+            </a>
           </nav>
         </div>
       </footer>
