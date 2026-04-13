@@ -33,7 +33,7 @@ async function getIssuesNeedingApproval(
   companyId: string,
   token: string
 ): Promise<PaperclipIssue[]> {
-  const url = `${apiUrl}/api/companies/${companyId}/issues?labelId=${NEEDS_APPROVAL_LABEL_ID}&status=todo,in_progress,in_review,blocked`;
+  const url = `${apiUrl}/companies/${companyId}/issues?labelId=${NEEDS_APPROVAL_LABEL_ID}&status=todo,in_progress,in_review,blocked`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -44,7 +44,7 @@ async function getIssuesNeedingApproval(
 }
 
 async function isAlreadyNotified(apiUrl: string, issueId: string, token: string): Promise<boolean> {
-  const res = await fetch(`${apiUrl}/api/issues/${issueId}/comments`, {
+  const res = await fetch(`${apiUrl}/issues/${issueId}/comments`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) return false;
@@ -58,7 +58,7 @@ async function markAsNotified(
   token: string,
   runId?: string
 ): Promise<void> {
-  await fetch(`${apiUrl}/api/issues/${issueId}/comments`, {
+  await fetch(`${apiUrl}/issues/${issueId}/comments`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -111,12 +111,11 @@ export async function POST(request: Request): Promise<NextResponse> {
   const paperclipSystemToken = process.env.PAPERCLIP_SYSTEM_TOKEN;
   const notificationEmail = process.env.NOTIFICATION_EMAIL ?? "felix@foerderis.de";
 
-  if (!resendApiKey || !paperclipApiUrl || !paperclipCompanyId || !paperclipSystemToken) {
+  if (!paperclipApiUrl || !paperclipCompanyId || !paperclipSystemToken) {
     return NextResponse.json(
       {
         error: "Missing required env vars",
         missing: [
-          !resendApiKey && "RESEND_API_KEY",
           !paperclipApiUrl && "PAPERCLIP_API_URL",
           !paperclipCompanyId && "PAPERCLIP_COMPANY_ID",
           !paperclipSystemToken && "PAPERCLIP_SYSTEM_TOKEN",
@@ -126,7 +125,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const resend = new Resend(resendApiKey);
+  // RESEND_API_KEY is optional: without it, issues are discovered and marked
+  // (idempotency) but the email step is skipped.
+  const resend = resendApiKey ? new Resend(resendApiKey) : null;
   const runId = request.headers.get("X-Paperclip-Run-Id") ?? undefined;
 
   const notified: string[] = [];
@@ -153,15 +154,17 @@ export async function POST(request: Request): Promise<NextResponse> {
             return;
           }
 
-          // Send email
-          await resend.emails.send({
-            from: "Foerderis <kontakt@foerderis.de>",
-            to: notificationEmail,
-            subject: `[Foerderis] Approval needed: ${issue.title}`,
-            html: buildEmailHtml(issue),
-          });
+          if (resend) {
+            // Send email
+            await resend.emails.send({
+              from: "Foerderis <kontakt@foerderis.de>",
+              to: notificationEmail,
+              subject: `[Foerderis] Approval needed: ${issue.title}`,
+              html: buildEmailHtml(issue),
+            });
+          }
 
-          // Mark notified
+          // Mark notified (also when email is skipped, so we don't retry once Resend is configured)
           await markAsNotified(paperclipApiUrl, issue.id, paperclipSystemToken, runId);
 
           notified.push(issue.identifier);
@@ -180,5 +183,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  return NextResponse.json({ notified, skipped, errors });
+  return NextResponse.json({
+    notified,
+    skipped,
+    errors,
+    ...(resend
+      ? {}
+      : { warning: "RESEND_API_KEY not set — marker comments posted but emails not sent" }),
+  });
 }
